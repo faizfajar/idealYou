@@ -37,7 +37,6 @@ class BmiCalculationRequest extends FormRequest
             'weight' => [
                 'required',
                 'numeric',
-                'min:30',
                 'max:300',
             ],
         ];

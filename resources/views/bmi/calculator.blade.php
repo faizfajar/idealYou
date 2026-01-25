@@ -6,8 +6,8 @@
 <div class="max-w-2xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">Kalkulator Berat Badan Ideal</h1>
-        <p class="text-lg text-gray-600">Hitung BMI Anda dan temukan berat badan ideal</p>
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Kalkulator BMI</h1>
+        <p class="text-lg text-gray-600">Masukan tinggi dan berat badan Anda untuk menghitung BMI</p>
     </div>
 
     <!-- Calculator Card -->

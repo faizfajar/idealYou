@@ -40,15 +40,10 @@ class BmiCalculatorService
      */
     public function getBmiCategory(float $bmi): string
     {
-        if ($bmi < 18.5) {
-            return 'Kekurangan Berat Badan';
-        } elseif ($bmi < 25) {
-            return 'Normal';
-        } elseif ($bmi < 30) {
-            return 'Kelebihan Berat Badan';
-        } else {
-            return 'Obesitas';
-        }
+    if ($bmi < 18.5) return 'Underweight';
+    if ($bmi < 25) return 'Ideal';
+    if ($bmi < 30) return 'Overweight';
+    return 'Obesitas';
     }
 
     /**

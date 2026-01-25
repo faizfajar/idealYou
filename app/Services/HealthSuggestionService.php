@@ -19,7 +19,7 @@ class HealthSuggestionService
     public function getDietSuggestions(string $category): array
     {
         return match($category) {
-            'Kekurangan Berat Badan' => [
+            'Underweight' => [
                 'Tingkatkan asupan kalori dengan makanan bergizi tinggi',
                 'Konsumsi protein tinggi seperti daging, ikan, telur, dan kacang-kacangan',
                 'Makan 5-6 kali sehari dengan porsi sedang',
@@ -29,7 +29,7 @@ class HealthSuggestionService
                 'Hindari makan terlalu banyak serat sebelum makan utama',
             ],
 
-            'Normal' => [
+            'Ideal' => [
                 'Pertahankan pola makan seimbang dengan gizi seimbang',
                 'Konsumsi sayur dan buah minimal 5 porsi per hari',
                 'Pilih protein tanpa lemak seperti ayam, ikan, tahu, dan tempe',
@@ -39,7 +39,7 @@ class HealthSuggestionService
                 'Jaga porsi makan tetap teratur 3 kali sehari dengan 2 kali snack sehat',
             ],
 
-            'Kelebihan Berat Badan' => [
+            'Overweight' => [
                 'Kurangi asupan kalori sekitar 500 kalori per hari',
                 'Perbanyak sayuran hijau dan protein tanpa lemak',
                 'Hindari makanan tinggi gula, lemak jenuh, dan makanan cepat saji',
@@ -79,7 +79,7 @@ class HealthSuggestionService
     public function getExerciseSuggestions(string $category): array
     {
         return match($category) {
-            'Kekurangan Berat Badan' => [
+            'Underweight' => [
                 'Fokus pada latihan beban untuk membangun massa otot',
                 'Lakukan strength training seperti squat, deadlift, bench press 3-4x seminggu',
                 'Hindari cardio intensitas tinggi yang berlebihan',
@@ -89,7 +89,7 @@ class HealthSuggestionService
                 'Durasi olahraga 45-60 menit per sesi',
             ],
 
-            'Normal' => [
+            'Ideal' => [
                 'Lakukan cardio moderat 150 menit per minggu (jalan cepat, jogging, bersepeda)',
                 'Latihan kekuatan 2-3x seminggu untuk semua kelompok otot utama',
                 'Tambahkan yoga atau stretching 2x seminggu untuk fleksibilitas',
@@ -98,7 +98,7 @@ class HealthSuggestionService
                 'Gabungkan aktivitas fisik dalam rutinitas harian',
             ],
 
-            'Kelebihan Berat Badan' => [
+            'Overweight' => [
                 'Lakukan cardio 200-250 menit per minggu dengan intensitas sedang',
                 'Kombinasikan steady-state cardio (jogging, bersepeda) dengan interval training',
                 'Latihan kekuatan 3x seminggu untuk meningkatkan metabolisme',
@@ -137,7 +137,7 @@ class HealthSuggestionService
     public function getWeeklySchedule(string $category): array
     {
         return match($category) {
-            'Kekurangan Berat Badan' => [
+            'Underweight' => [
                 'Senin: Latihan kekuatan upper body (dada, bahu, trisep) - 45 menit',
                 'Selasa: Istirahat aktif - stretching atau yoga ringan 20 menit',
                 'Rabu: Latihan kekuatan lower body (kaki, glutes) - 45 menit',
@@ -147,7 +147,7 @@ class HealthSuggestionService
                 'Minggu: Istirahat penuh - meal prep untuk minggu depan',
             ],
 
-            'Normal' => [
+            'Ideal' => [
                 'Senin: Latihan kardio 30-45 menit (jogging atau bersepeda)',
                 'Selasa: Latihan kekuatan upper body - 40 menit',
                 'Rabu: Yoga atau pilates - 45 menit',
@@ -157,7 +157,7 @@ class HealthSuggestionService
                 'Minggu: Istirahat aktif - jalan santai atau stretching ringan 30 menit',
             ],
 
-            'Kelebihan Berat Badan' => [
+            'Overweight' => [
                 'Senin: Kardio intensitas sedang 40-50 menit + stretching 10 menit',
                 'Selasa: Latihan kekuatan full body - 30 menit + jalan kaki 20 menit',
                 'Rabu: HIIT atau interval training 30 menit + core workout 15 menit',
@@ -210,13 +210,13 @@ class HealthSuggestionService
     public function getMotivationalMessage(string $category): string
     {
         return match($category) {
-            'Kekurangan Berat Badan' =>
+            'Underweight' =>
                 'Fokus pada penambahan massa otot dan berat badan yang sehat. Konsistensi dalam makan dan latihan adalah kunci!',
 
-            'Normal' =>
+            'Ideal' =>
                 'Pertahankan gaya hidup sehat Anda! Konsistensi adalah kunci untuk tetap di zona sehat.',
 
-            'Kelebihan Berat Badan' =>
+            'Overweight' =>
                 'Anda berada di jalur yang tepat! Dengan komitmen dan konsistensi, target berat ideal bisa tercapai.',
 
             'Obesitas' =>

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
     <title>Register - Ideal You</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -19,6 +21,8 @@
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
+
+        .logo-font { font-family: 'Preahvihear', sans-serif; }
 
         @keyframes float {
             0%, 100% {
@@ -46,7 +50,7 @@
                     </svg>
                 </div>
 
-                <h1 class="text-5xl font-bold mb-4">Ideal You</h1>
+                <h1 class="text-4xl font-bold logo-font gradient-bg bg-clip-text">iDealYou</h1>
                 <p class="text-xl text-center text-white/90 max-w-md">
                     Temukan berat badan ideal Anda dan raih hidup yang lebih sehat
                 </p>

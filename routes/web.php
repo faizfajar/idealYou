@@ -25,10 +25,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/home', 'index')->name('home');
         Route::post('/calculate', 'calculate')->name('bmi.calculate');
         Route::get('/bmi-result', 'result')->name('bmi.result');
-    });
-
+        });
+        
     // History Routes
     Route::get('/history', [HistoryController::class, 'index'])->name('bmi.history');
+    Route::delete('/history/{id}', [HistoryController::class, 'destroy'])->name('bmi.history.delete');
 });
 
 require __DIR__ . '/settings.php';
