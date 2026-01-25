@@ -23,7 +23,8 @@ Route::middleware('auth')->group(function () {
     // BMI Calculator Routes
     Route::controller(BmiController::class)->group(function () {
         Route::get('/home', 'index')->name('home');
-        Route::post('/calculate', 'calculate')->name('bmi.calculate'); 
+        Route::post('/calculate', 'calculate')->name('bmi.calculate');
+        Route::get('/bmi-result/{id}', 'result')->name('bmi.result');    
     });
         
     // History Routes
