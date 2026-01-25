@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use App\Models\BmiCalculation;
+use App\Models\HistoryBmi;
+use App\Services\HealthSuggestionService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
 
-/**
- * History Controller
- *
- * Handles BMI calculation history display.
- * Single Responsibility: Only manages history viewing
- */
+
 class HistoryController extends Controller
 {
 
-    /**
-     * Display BMI calculation history
-     *
-     * @return View
-     */
+    protected HealthSuggestionService $suggestionService;
+
+    public function __construct(
+        HealthSuggestionService $suggestionService
+    ) {
+        $this->suggestionService = $suggestionService;
+    }
+
     public function index(): View
     {
-        // Get user's BMI calculations with pagination
-        $calculations = auth()->user()
-            ->bmiCalculations()
-            ->latest()
+        $calculations = HistoryBmi::where('user_id', auth()->id())
+            ->orderBy('tanggal', 'desc')
             ->paginate(10);
 
-        // Get statistics
-        $totalCalculations = auth()->user()->bmiCalculations()->count();
-        $latestCalculation = auth()->user()->bmiCalculations()->latest()->first();
+        $totalCalculations = HistoryBmi::where('user_id', auth()->id())->count();
+        $latestCalculation = HistoryBmi::where('user_id', auth()->id())
+            ->orderBy('tanggal', 'desc')
+            ->first();
 
+        // dd($calculations);
         return view('bmi.history', compact(
             'calculations',
             'totalCalculations',
@@ -39,9 +39,23 @@ class HistoryController extends Controller
         ));
     }
 
+     public function detail(Request $request): View
+    {
+        $calculation = HistoryBmi::findOrFail($request->id);
+        
+
+        if ($calculation->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $suggestions = $this->suggestionService->getAllSuggestions($calculation->kategori);
+
+        return view('bmi.result', compact('calculation', 'suggestions'));
+    }
+
     public function destroy($id): RedirectResponse
     {
-        $calculation = BmiCalculation::findOrFail($id);
+        $calculation = HistoryBmi::findOrFail($id);
         
         if ($calculation->user_id !== auth()->id()) {
             abort(403);

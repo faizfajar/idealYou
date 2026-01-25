@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BmiCalculation extends Model
+class HistoryBmi extends Model
 {
-    protected $table = 'bmi_calculations';
-    protected $primaryKey = 'id_bmi';
+    protected $table = 'history_bmi';
+    protected $primaryKey = 'id_history';
     public $timestamps = false;
 
     protected $fillable = [
@@ -23,23 +23,12 @@ class BmiCalculation extends Model
         'tanggal',
     ];
 
-    protected $casts = [
-        'tinggi_badan' => 'decimal:2',
-        'berat_badan' => 'decimal:2',
-        'nilai_bmi' => 'decimal:2',
-        'ideal_berat_badan' => 'decimal:2',
-        'minimum_berat_badan' => 'decimal:2',
-        'maximum_berat_badan' => 'decimal:2',
-        'tanggal' => 'datetime',
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Accessor untuk compatibility
-    public function getHeightAttribute()
+     public function getHeightAttribute()
     {
         return $this->tinggi_badan;
     }

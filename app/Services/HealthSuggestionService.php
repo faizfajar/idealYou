@@ -2,21 +2,129 @@
 
 namespace App\Services;
 
+use App\Models\RekomendasiMakanan;
+use App\Models\RekomendasiOlahraga;
+use App\Models\TipsSehat;
+
 /**
  * Health Suggestion Service
- *
- * This service provides health suggestions based on BMI category.
+ * 
+ * This service provides health suggestions from database or fallback to default.
  * Single Responsibility: Only handles health recommendations
  */
 class HealthSuggestionService
 {
     /**
-     * Get diet suggestions based on BMI category
-     *
+     * Get diet suggestions from database based on BMI category
+     * Falls back to default suggestions if database is empty
+     * 
      * @param string $category BMI category
      * @return array Diet suggestions
      */
     public function getDietSuggestions(string $category): array
+    {
+        // Try to get from database
+        $makanan = RekomendasiMakanan::where('kategori_bmi', $category)->get();
+        
+        // If database has data, return formatted data
+        if ($makanan->isNotEmpty()) {
+            return $makanan->map(function($item) {
+                $text = $item->nama_makanan;
+                if ($item->deskripsi) {
+                    $text .= ' - ' . $item->deskripsi;
+                }
+                if ($item->kalori) {
+                    $text .= ' (' . $item->kalori . ' kalori)';
+                }
+                return $text;
+            })->toArray();
+        }
+
+        // Fallback to default suggestions
+        return $this->getDefaultDietSuggestions($category);
+    }
+
+    /**
+     * Get exercise suggestions from database based on BMI category
+     * Falls back to default suggestions if database is empty
+     * 
+     * @param string $category BMI category
+     * @return array Exercise suggestions
+     */
+    public function getExerciseSuggestions(string $category): array
+    {
+        // Try to get from database
+        $olahraga = RekomendasiOlahraga::where('kategori_bmi', $category)->get();
+        
+        // If database has data, return formatted data
+        if ($olahraga->isNotEmpty()) {
+            return $olahraga->map(function($item) {
+                $text = $item->nama_olahraga;
+                if ($item->deskripsi) {
+                    $text .= ' - ' . $item->deskripsi;
+                }
+                return $text;
+            })->toArray();
+        }
+
+        // Fallback to default suggestions
+        return $this->getDefaultExerciseSuggestions($category);
+    }
+
+    /**
+     * Get health tips from database
+     * Falls back to default tips if database is empty
+     * 
+     * @param string|null $category BMI category (optional)
+     * @return array Health tips
+     */
+    public function getTipsSehat(?string $category = null): array
+    {
+        $query = TipsSehat::query();
+        
+        // Filter by category if provided
+        if ($category) {
+            $query->where('kategori', $category);
+        }
+        
+        $tips = $query->get();
+        
+        // If database has data, return formatted data
+        if ($tips->isNotEmpty()) {
+            return $tips->map(function($item) {
+                return [
+                    'judul' => $item->judul,
+                    'deskripsi' => $item->deskripsi,
+                ];
+            })->toArray();
+        }
+
+        // Fallback to default tips
+        return $this->getDefaultTips();
+    }
+
+    /**
+     * Get all suggestions at once
+     * 
+     * @param string $category BMI category
+     * @return array All suggestions (diet, exercise, tips)
+     */
+    public function getAllSuggestions(string $category): array
+    {
+        return [
+            'diet' => $this->getDietSuggestions($category),
+            'exercise' => $this->getExerciseSuggestions($category),
+            'tips' => $this->getTipsSehat($category),
+        ];
+    }
+
+    /**
+     * Default diet suggestions when database is empty
+     * 
+     * @param string $category BMI category
+     * @return array Default diet suggestions
+     */
+    private function getDefaultDietSuggestions(string $category): array
     {
         return match($category) {
             'Underweight' => [
@@ -28,7 +136,7 @@ class HealthSuggestionService
                 'Tambahkan lemak sehat dari alpukat, kacang-kacangan, dan minyak zaitun',
                 'Hindari makan terlalu banyak serat sebelum makan utama',
             ],
-
+            
             'Ideal' => [
                 'Pertahankan pola makan seimbang dengan gizi seimbang',
                 'Konsumsi sayur dan buah minimal 5 porsi per hari',
@@ -38,7 +146,7 @@ class HealthSuggestionService
                 'Konsumsi whole grains seperti beras merah, roti gandum',
                 'Jaga porsi makan tetap teratur 3 kali sehari dengan 2 kali snack sehat',
             ],
-
+            
             'Overweight' => [
                 'Kurangi asupan kalori sekitar 500 kalori per hari',
                 'Perbanyak sayuran hijau dan protein tanpa lemak',
@@ -49,7 +157,7 @@ class HealthSuggestionService
                 'Makan dengan porsi lebih kecil tapi lebih sering',
                 'Hindari makan malam terlalu larut',
             ],
-
+            
             'Obesitas' => [
                 'Kurangi asupan kalori secara signifikan (konsultasi dengan ahli gizi)',
                 'Fokus pada sayuran, buah-buahan, dan protein rendah lemak',
@@ -61,7 +169,7 @@ class HealthSuggestionService
                 'Meal prep untuk memastikan makanan sehat tersedia',
                 'Konsultasikan dengan dokter atau ahli gizi untuk program diet khusus',
             ],
-
+            
             default => [
                 'Konsultasikan dengan ahli gizi untuk saran yang lebih spesifik',
                 'Pertahankan pola makan seimbang',
@@ -71,12 +179,12 @@ class HealthSuggestionService
     }
 
     /**
-     * Get exercise suggestions based on BMI category
-     *
+     * Default exercise suggestions when database is empty
+     * 
      * @param string $category BMI category
-     * @return array Exercise suggestions
+     * @return array Default exercise suggestions
      */
-    public function getExerciseSuggestions(string $category): array
+    private function getDefaultExerciseSuggestions(string $category): array
     {
         return match($category) {
             'Underweight' => [
@@ -88,7 +196,7 @@ class HealthSuggestionService
                 'Konsumsi protein shake setelah latihan',
                 'Durasi olahraga 45-60 menit per sesi',
             ],
-
+            
             'Ideal' => [
                 'Lakukan cardio moderat 150 menit per minggu (jalan cepat, jogging, bersepeda)',
                 'Latihan kekuatan 2-3x seminggu untuk semua kelompok otot utama',
@@ -97,7 +205,7 @@ class HealthSuggestionService
                 'Pilih olahraga yang Anda nikmati agar konsisten',
                 'Gabungkan aktivitas fisik dalam rutinitas harian',
             ],
-
+            
             'Overweight' => [
                 'Lakukan cardio 200-250 menit per minggu dengan intensitas sedang',
                 'Kombinasikan steady-state cardio (jogging, bersepeda) dengan interval training',
@@ -107,7 +215,7 @@ class HealthSuggestionService
                 'Monitor detak jantung untuk memastikan berada di zona fat burning',
                 'Konsistensi lebih penting daripada intensitas tinggi',
             ],
-
+            
             'Obesitas' => [
                 'Mulai dengan aktivitas ringan seperti jalan kaki 30 menit setiap hari',
                 'Lakukan cardio intensitas rendah hingga sedang minimal 250-300 menit per minggu',
@@ -119,7 +227,7 @@ class HealthSuggestionService
                 'PENTING: Konsultasikan dengan dokter sebelum memulai program olahraga',
                 'Mulai perlahan dan tingkatkan intensitas secara bertahap untuk menghindari cedera',
             ],
-
+            
             default => [
                 'Konsultasikan dengan pelatih atau dokter untuk program yang tepat',
                 'Lakukan aktivitas fisik secara teratur',
@@ -129,101 +237,33 @@ class HealthSuggestionService
     }
 
     /**
-     * Get weekly schedule suggestions based on BMI category
-     *
-     * @param string $category BMI category
-     * @return array Weekly schedule
+     * Default health tips when database is empty
+     * 
+     * @return array Default tips
      */
-    public function getWeeklySchedule(string $category): array
-    {
-        return match($category) {
-            'Underweight' => [
-                'Senin: Latihan kekuatan upper body (dada, bahu, trisep) - 45 menit',
-                'Selasa: Istirahat aktif - stretching atau yoga ringan 20 menit',
-                'Rabu: Latihan kekuatan lower body (kaki, glutes) - 45 menit',
-                'Kamis: Istirahat penuh - fokus pada pemulihan otot',
-                'Jumat: Latihan kekuatan full body atau back & biceps - 45 menit',
-                'Sabtu: Aktivitas ringan seperti jalan santai atau berenang 30 menit',
-                'Minggu: Istirahat penuh - meal prep untuk minggu depan',
-            ],
-
-            'Ideal' => [
-                'Senin: Latihan kardio 30-45 menit (jogging atau bersepeda)',
-                'Selasa: Latihan kekuatan upper body - 40 menit',
-                'Rabu: Yoga atau pilates - 45 menit',
-                'Kamis: Latihan kardio 30-45 menit (berenang atau zumba)',
-                'Jumat: Latihan kekuatan lower body - 40 menit',
-                'Sabtu: Aktivitas outdoor atau olahraga favorit (hiking, basket) - 60 menit',
-                'Minggu: Istirahat aktif - jalan santai atau stretching ringan 30 menit',
-            ],
-
-            'Overweight' => [
-                'Senin: Kardio intensitas sedang 40-50 menit + stretching 10 menit',
-                'Selasa: Latihan kekuatan full body - 30 menit + jalan kaki 20 menit',
-                'Rabu: HIIT atau interval training 30 menit + core workout 15 menit',
-                'Kamis: Kardio intensitas sedang 40-50 menit + stretching 10 menit',
-                'Jumat: Latihan kekuatan full body - 30 menit + jalan kaki 20 menit',
-                'Sabtu: Aktivitas outdoor aktif (hiking, bersepeda) - 60-90 menit',
-                'Minggu: Yoga atau stretching - 30 menit, fokus pada recovery',
-            ],
-
-            'Obesitas' => [
-                'Senin: Jalan cepat 30 menit pagi + latihan kekuatan ringan 20 menit sore',
-                'Selasa: Berenang atau water aerobics 40 menit',
-                'Rabu: Jalan cepat 30 menit + stretching 15 menit',
-                'Kamis: Latihan kekuatan full body ringan-sedang 30 menit',
-                'Jumat: Jalan cepat 40 menit + core workout 10 menit',
-                'Sabtu: Aktivitas favorit intensitas rendah 45-60 menit (bersepeda santai, hiking ringan)',
-                'Minggu: Jalan santai 30 menit + yoga atau stretching 20 menit',
-                'CATATAN: Tambahkan jalan kaki 10-15 menit setelah setiap makan',
-            ],
-
-            default => [
-                'Konsultasikan dengan pelatih untuk jadwal yang disesuaikan',
-                'Lakukan aktivitas fisik minimal 150 menit per minggu',
-                'Istirahat yang cukup sangat penting untuk pemulihan',
-            ],
-        };
-    }
-
-    /**
-     * Get all suggestions at once
-     *
-     * @param string $category BMI category
-     * @return array All suggestions
-     */
-    public function getAllSuggestions(string $category): array
+    private function getDefaultTips(): array
     {
         return [
-            'diet' => $this->getDietSuggestions($category),
-            'exercise' => $this->getExerciseSuggestions($category),
-            'schedule' => $this->getWeeklySchedule($category),
+            [
+                'judul' => 'Cukupi Kebutuhan Air',
+                'deskripsi' => 'Minum air putih minimal 8 gelas per hari. Sekitar 60% dari komposisi tubuh Anda adalah air.',
+            ],
+            [
+                'judul' => 'Manajemen Stres',
+                'deskripsi' => 'Hindari stres berlebihan. Cobalah teknik relaksasi seperti meditasi atau yoga untuk menenangkan pikiran.',
+            ],
+            [
+                'judul' => 'Kualitas Istirahat',
+                'deskripsi' => 'Tidur cukup 7-8 jam setiap malam. Istirahat yang baik penting untuk pemulihan tubuh dan metabolisme.',
+            ],
+            [
+                'judul' => 'Aktivitas Fisik Rutin',
+                'deskripsi' => 'Lakukan olahraga secara teratur minimal 150 menit per minggu untuk menjaga kesehatan jantung.',
+            ],
+            [
+                'judul' => 'Konsistensi adalah Kunci',
+                'deskripsi' => 'Perubahan kecil yang konsisten lebih baik daripada perubahan besar yang tidak berkelanjutan.',
+            ],
         ];
-    }
-
-    /**
-     * Get motivational message based on category
-     *
-     * @param string $category BMI category
-     * @return string Motivational message
-     */
-    public function getMotivationalMessage(string $category): string
-    {
-        return match($category) {
-            'Underweight' =>
-                'Fokus pada penambahan massa otot dan berat badan yang sehat. Konsistensi dalam makan dan latihan adalah kunci!',
-
-            'Ideal' =>
-                'Pertahankan gaya hidup sehat Anda! Konsistensi adalah kunci untuk tetap di zona sehat.',
-
-            'Overweight' =>
-                'Anda berada di jalur yang tepat! Dengan komitmen dan konsistensi, target berat ideal bisa tercapai.',
-
-            'Obesitas' =>
-                'Perjalanan menuju kesehatan dimulai dari satu langkah. Jangan menyerah, konsultasikan dengan profesional, dan rayakan setiap progress kecil!',
-
-            default =>
-                'Konsultasikan dengan ahli kesehatan untuk panduan yang tepat.',
-        };
     }
 }

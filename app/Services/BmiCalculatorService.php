@@ -108,11 +108,11 @@ class BmiCalculatorService
         $bmi = $this->calculateBmi($height, $weight);
 
         return [
-            'bmi' => $bmi,
-            'category' => $this->getBmiCategory($bmi),
-            'ideal_weight' => $this->calculateIdealWeight($height, $gender),
-            'min_weight' => $this->calculateMinWeight($height),
-            'max_weight' => $this->calculateMaxWeight($height),
+            'nilai_bmi' => $bmi,
+            'kategori' => $this->getBmiCategory($bmi),
+            'ideal_berat_badan' => $this->calculateIdealWeight($height, $gender),
+            'minimum_berat_badan' => $this->calculateMinWeight($height),
+            'maximum_berat_badan' => $this->calculateMaxWeight($height),
         ];
     }
 }

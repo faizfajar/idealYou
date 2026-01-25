@@ -159,37 +159,25 @@
                     <p class="text-gray-400 text-xs italic tracking-wide">Ilustrasi Gaya Hidup Sehat</p>
                 </div>
 
-                <div id="detail-tips" class="hidden animate-fade-in-up">
+                <div id="detail-tips" class="animate-fade-in-up">
                     <div class="bg-red-50/50 p-8 rounded-2xl border border-red-100">
                         <div class="space-y-8">
+                            @foreach($suggestions['tips'] as $index => $tip)
                             <div class="flex items-start group">
-                                <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-black mr-5 flex-shrink-0 shadow-md transform group-hover:scale-110 transition">1</div>
+                                <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-black mr-5 flex-shrink-0 shadow-md transform group-hover:scale-110 transition">{{ $index + 1 }}</div>
                                 <div>
-                                    <h4 class="font-bold text-gray-900 text-lg mb-1">Cukupi Kebutuhan Air</h4>
-                                    <p class="text-gray-600 leading-relaxed text-md">Banyak minum air putih. Sekitar **60%** dari komposisi tubuh Anda adalah air.</p>
+                                    <h4 class="font-bold text-gray-900 text-lg mb-1">{{ $tip['judul'] }}</h4>
+                                    <p class="text-gray-600 leading-relaxed text-md">{{ $tip['deskripsi'] }}</p>
                                 </div>
                             </div>
-                            <div class="flex items-start group">
-                                <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-black mr-5 flex-shrink-0 shadow-md transform group-hover:scale-110 transition">2</div>
-                                <div>
-                                    <h4 class="font-bold text-gray-900 text-lg mb-1">Manajemen Stres</h4>
-                                    <p class="text-gray-600 leading-relaxed text-md">Hindari stres. Cobalah tenangkan diri dengan mengambil napas dalam-dalam dan embuskan perlahan berulang kali sampai rileks.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start group">
-                                <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-black mr-5 flex-shrink-0 shadow-md transform group-hover:scale-110 transition">3</div>
-                                <div>
-                                    <h4 class="font-bold text-gray-900 text-lg mb-1">Kualitas Istirahat</h4>
-                                    <p class="text-gray-600 leading-relaxed text-md">Tidur cukup **7-8 jam**. Olahraga dan makanan bergizi akan sia-sia jika Anda kurang tidur.</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-            <button onclick="toggleCard('detail-tips', this)" class="w-full py-6 bg-gray-50 hover:bg-red-50 text-gray-500 hover:text-red-600 font-black transition-all border-t border-gray-100 tracking-[0.2em] text-xs">
+            <!-- <button onclick="toggleCard('detail-tips', this)" class="w-full py-6 bg-gray-50 hover:bg-red-50 text-gray-500 hover:text-red-600 font-black transition-all border-t border-gray-100 tracking-[0.2em] text-xs">
                 Lihat Detail
-            </button>
+            </button> -->
         </div>
 
     </div>

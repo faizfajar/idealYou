@@ -6,10 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('bmi_calculations', function (Blueprint $table) {
-            $table->increments('id_bmi');
+        Schema::create('history_bmi', function (Blueprint $table) {
+            $table->increments('id_history');
+            $table->foreignId('id_bmi');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('tinggi_badan', 5, 2);
             $table->decimal('berat_badan', 5, 2);
@@ -24,8 +28,11 @@ return new class extends Migration
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('bmi_calculations');
+        Schema::dropIfExists('history_bmi');
     }
 };

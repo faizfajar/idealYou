@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
        Schema::create('rekomendasi_makanan', function (Blueprint $table) {
-        $table->increments('id_makanan');
-        $table->string('nama_makanan', 100)->nullable();
-        $table->string('kategori_bmi', 50)->nullable();
-        $table->string('jenis_makanan', 50)->nullable();
-        $table->integer('kalori')->nullable();
-        $table->text('deskripsi')->nullable();
-        $table->string('gambar', 255)->nullable();
-        // $table->timestamps(); // Tambahkan ini jika butuh created_at & updated_at
-    });
+            $table->increments('id_makanan');
+            $table->string('nama_makanan', 100)->nullable();
+            $table->string('kategori_bmi', 50)->nullable();
+            $table->string('jenis_makanan', 50)->nullable();
+            $table->integer('kalori')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('gambar', 255)->nullable();
+            // $table->timestamps(); // Tambahkan ini jika butuh created_at & updated_at
+        });
     }
 
     /**
