@@ -77,7 +77,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-black text-gray-800 tracking-tight">Rekomendasi Diet</h2>
+                        <h2 class="text-2xl font-black text-gray-800 tracking-tight">Rekomendasi Pola Makan
                         <p class="text-sm text-green-600 font-semibold tracking-wider uppercase mt-1">Nutrisi & Pola Makan Sehat</p>
                     </div>
                 </div>
