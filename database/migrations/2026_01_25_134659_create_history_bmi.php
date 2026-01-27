@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('history_bmi', function (Blueprint $table) {
             $table->increments('id_history');
-            $table->foreignId('id_bmi');
+            // $table->foreignId('id_bmi');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('tinggi_badan', 5, 2);
             $table->decimal('berat_badan', 5, 2);

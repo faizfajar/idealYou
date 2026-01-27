@@ -29,6 +29,25 @@
             scrollbar-width: none;
         }
 
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+
+        .overflow-x-auto::-webkit-scrollbar {
+            height: 6px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* Warna abu-abu Tailwind */
+            border-radius: 10px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -144,6 +163,21 @@
             detailElement.classList.add('hidden');
             button.innerText = 'Lihat Detail';
         }
+    }
+</script>
+
+<script>
+    function scrollSlider(id, direction) {
+        const slider = document.getElementById(id);
+        if (!slider) return;
+        
+        // Geser sejauh lebar satu card
+        const cardWidth = slider.querySelector('.flex-none').clientWidth + 16; // 16 adalah gap-4
+        
+        slider.scrollBy({
+            left: direction === 'left' ? -cardWidth : cardWidth,
+            behavior: 'smooth'
+        });
     }
 </script>
 </html>

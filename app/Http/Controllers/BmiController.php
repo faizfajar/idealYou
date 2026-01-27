@@ -37,7 +37,6 @@ class BmiController extends Controller
         $gender = auth()->user()->gender;
 
         $calculations = $this->bmiService->calculateAll($height, $weight, $gender);
-        // dd($calculations);
 
         $data = [
             'user_id' => auth()->id(),

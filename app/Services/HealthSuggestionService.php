@@ -21,26 +21,24 @@ class HealthSuggestionService
      * @param string $category BMI category
      * @return array Diet suggestions
      */
-    public function getDietSuggestions(string $category): array
+   public function getDietSuggestions(string $category): array
     {
-        // Try to get from database
         $makanan = RekomendasiMakanan::where('kategori_bmi', $category)->get();
-        
-        // If database has data, return formatted data
+
         if ($makanan->isNotEmpty()) {
-            return $makanan->map(function($item) {
-                $text = $item->nama_makanan;
-                if ($item->deskripsi) {
-                    $text .= ' - ' . $item->deskripsi;
-                }
-                if ($item->kalori) {
-                    $text .= ' (' . $item->kalori . ' kalori)';
-                }
-                return $text;
-            })->toArray();
+            return $makanan->groupBy('jenis_makanan')
+                ->map(function ($items) {
+                    return $items->map(function ($item) {
+                        // Buat format teks seperti sebelumnya
+                        $text = $item->nama_makanan;
+                        if ($item->deskripsi) $text .= ' - ' . $item->deskripsi;
+                        if ($item->kalori) $text .= ' (' . $item->kalori . ' kalori)';
+
+                        return $text;
+                    })->toArray();
+                })->toArray();
         }
 
-        // Fallback to default suggestions
         return $this->getDefaultDietSuggestions($category);
     }
 
@@ -53,21 +51,31 @@ class HealthSuggestionService
      */
     public function getExerciseSuggestions(string $category): array
     {
-        // Try to get from database
+        // Ambil data dari database
         $olahraga = RekomendasiOlahraga::where('kategori_bmi', $category)->get();
         
-        // If database has data, return formatted data
+        // Jika ada data, kelompokkan berdasarkan 'jenis_olahraga'
         if ($olahraga->isNotEmpty()) {
-            return $olahraga->map(function($item) {
-                $text = $item->nama_olahraga;
-                if ($item->deskripsi) {
-                    $text .= ' - ' . $item->deskripsi;
-                }
-                return $text;
-            })->toArray();
+            return $olahraga->groupBy('jenis')
+                ->map(function ($items) {
+                    return $items->map(function ($item) {
+                        $text = $item->nama_olahraga;
+                        
+                        if ($item->deskripsi) {
+                            $text .= ' - ' . $item->deskripsi;
+                        }
+                        
+                        // Menambahkan durasi (misal: "30 menit") ke dalam teks
+                        if ($item->durasi) {
+                            $text .= ' (' . $item->durasi . ')';
+                        }
+                        
+                        return $text;
+                    })->toArray();
+                })->toArray();
         }
 
-        // Fallback to default suggestions
+        // Pastikan fungsi fallback ini juga return format array yang sudah dikelompokkan
         return $this->getDefaultExerciseSuggestions($category);
     }
 
@@ -111,10 +119,17 @@ class HealthSuggestionService
      */
     public function getAllSuggestions(string $category): array
     {
+
+        $makanan = RekomendasiMakanan::where('kategori_bmi', $category)->get();
+        $olahraga = RekomendasiOlahraga::where('kategori_bmi', $category)->get();
+
         return [
             'diet' => $this->getDietSuggestions($category),
             'exercise' => $this->getExerciseSuggestions($category),
             'tips' => $this->getTipsSehat($category),
+
+            'diet_images' => $makanan->pluck('gambar')->toArray(),
+            'exercise_images' => $olahraga->pluck('gambar')->toArray(),
         ];
     }
 

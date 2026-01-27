@@ -15,6 +15,8 @@ return new class extends Migration
             $table->increments('id_olahraga');
             $table->string('nama_olahraga', 100)->nullable();
             $table->string('kategori_bmi', 50)->nullable();
+            $table->string('jenis');
+            $table->string('durasi');
             $table->text('deskripsi')->nullable();
             $table->string('gambar', 255)->nullable();
             // $table->timestamps();
