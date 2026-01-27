@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'History Perhitungan')
+@section('title', 'Riwayat Perhitungan')
 
 @section('content')
 <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">History Perhitungan BMI</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Riwayat Perhitungan BMI</h1>
         <p class="text-gray-600">Lihat semua perhitungan BMI yang pernah Anda lakukan</p>
     </div>
 
@@ -58,7 +58,7 @@
             @endif
         </div>
 
-        <!-- History Table -->
+        <!-- Riwayat Table -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div class="overflow-x-auto">
                 @if(session('success'))
@@ -148,7 +148,7 @@
             <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada History</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Riwayat</h3>
             <p class="text-gray-600 mb-6">Anda belum melakukan perhitungan BMI. Mulai sekarang!</p>
             <a href="{{ route('home') }}" class="inline-flex items-center px-6 py-3 gradient-bg text-white rounded-lg font-semibold hover:opacity-90 transition">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

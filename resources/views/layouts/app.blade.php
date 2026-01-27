@@ -57,7 +57,7 @@
                         Cek BMI
                     </a>
                     <a href="{{ route('bmi.history') }}" class="text-white/90 hover:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('bmi.history') ? 'bg-white/20 text-white' : 'hover:bg-white/10' }}">
-                        History
+                        Riwayat
                     </a>
 
                     <div class="h-6 w-[1px] bg-white/20 mx-1"></div>
