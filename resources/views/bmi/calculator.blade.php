@@ -87,7 +87,7 @@
                 class="w-full gradient-bg text-white py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
                 <span class="flex items-center justify-center space-x-2">
-                    <span>Hitung Sekarang</span>
+                    <span>Hitung BMI</span>
                 </span>
             </button>
         </form>
