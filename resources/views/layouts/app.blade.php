@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
-    <title>Ideal You - @yield('title', 'Dashboard')</title>
+    <title>iDealYou - @yield('title', 'Dashboard')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -73,7 +73,7 @@
 
                 <div class="flex items-center space-x-2">
                     <a href="{{ route('home') }}" class="text-white/90 hover:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('home') ? 'bg-white/20 text-white' : 'hover:bg-white/10' }}">
-                        Cek BMI
+                        Hitung BMI
                     </a>
                     <a href="{{ route('bmi.history') }}" class="text-white/90 hover:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('bmi.history') ? 'bg-white/20 text-white' : 'hover:bg-white/10' }}">
                         Riwayat
@@ -123,7 +123,7 @@
     <footer class="bg-white border-t border-gray-200 mt-auto">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <p class="text-center text-gray-500 text-sm">
-                &copy; 2025 Ideal You. Semua hak dilindungi.
+                &copy; 2025 iDealYou. Semua hak dilindungi.
             </p>
         </div>
     </footer>

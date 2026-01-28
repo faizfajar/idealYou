@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
-    <title>Register - Ideal You</title>
+    <title>Register - iDealYou</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -83,7 +83,7 @@
             <div class="w-full max-w-md">
                 <!-- Mobile Logo -->
                 <div class="lg:hidden text-center mb-8">
-                    <h1 class="text-4xl font-bold gradient-bg bg-clip-text text-transparent">Ideal You</h1>
+                    <h1 class="text-4xl font-bold gradient-bg bg-clip-text text-transparent logo-font">iDealYou</h1>
                     <p class="text-gray-600 mt-2">Hidup Sehat, Berat Ideal</p>
                 </div>
 
