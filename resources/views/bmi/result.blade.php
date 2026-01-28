@@ -291,13 +291,5 @@
             </div>
         </div>
     </div>
-
-    <div class="mt-12 flex flex-col sm:flex-row gap-6">
-        <a href="{{ route('home') }}" class="flex-1 bg-purple-600 text-white py-6 rounded-2xl font-black text-center hover:bg-purple-700 transition shadow-xl text-lg tracking-widest">
-            HITUNG ULANG BMI
-        </a>
-        <a href="{{ route('bmi.history') }}" class="flex-1 bg-white border-2 border-purple-600 text-purple-600 py-6 rounded-2xl font-black text-center hover:bg-purple-50 transition text-lg tracking-widest shadow-md">
-            RIWAYAT PERHITUNGAN
-        </a>
-    </div>
 </div>
+@endsection
