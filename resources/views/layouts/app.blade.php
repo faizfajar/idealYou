@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
     <title>iDealYou - @yield('title', 'Dashboard')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -57,7 +58,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" data-success="{{ session('success') }}" 
+      data-error="{{ $errors->first() }}">
     <!-- Navigation -->
     <nav class="gradient-bg shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -179,5 +181,43 @@
             behavior: 'smooth'
         });
     }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Ambil data dari Session Laravel (Safely encoded)
+        const body = document.querySelector('body');
+        const successMessage = body.getAttribute('data-success');
+        const errorMessage = body.getAttribute('data-error');
+
+        // 2. Alert untuk Sukses (Login / Register)
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: successMessage,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'rounded-3xl',
+                }
+            });
+        }
+
+        // 3. Alert untuk Error (Salah Email/Password)
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Waduh!',
+                text: errorMessage,
+                confirmButtonColor: '#764ba2', // Warna ungu iDealYou
+                customClass: {
+                    popup: 'rounded-3xl',
+                    confirmButton: 'rounded-xl px-6 py-2'
+                }
+            });
+        }
+    });
 </script>
 </html>
