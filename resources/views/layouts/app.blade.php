@@ -209,7 +209,7 @@
         if (errorMessage) {
             Swal.fire({
                 icon: 'error',
-                title: 'Waduh!',
+                title: 'Ooops!',
                 text: errorMessage,
                 confirmButtonColor: '#764ba2', // Warna ungu iDealYou
                 customClass: {
