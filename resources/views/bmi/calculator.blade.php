@@ -3,7 +3,7 @@
 @section('title', 'Kalkulator BMI')
 
 @section('content')
-<div class="max-w-2xl mx-auto">
+<div class="max-w-4xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-gray-900 mb-4">Kalkulator BMI</h1>
