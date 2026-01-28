@@ -9,7 +9,7 @@
             <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
-            Kembali ke Kalkulator
+            Hitung Ulang
         </a>
     </div>
 
@@ -250,7 +250,7 @@
                     <p class="text-gray-400 text-xs italic tracking-wide">Ilustrasi Gaya Hidup Sehat</p>
                 </div>
 
-                <div id="detail-tips" class="animate-fade-in-up">
+                <!-- <div id="detail-tips" class="animate-fade-in-up">
                     <div class="bg-red-50/50 p-8 rounded-2xl border border-red-100">
                         <div class="space-y-8">
                             @foreach($suggestions['tips'] as $index => $tip)
@@ -264,32 +264,13 @@
                             @endforeach
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- <button onclick="toggleCard('detail-tips', this)" class="w-full py-6 bg-gray-50 hover:bg-red-50 text-gray-500 hover:text-red-600 font-black transition-all border-t border-gray-100 tracking-[0.2em] text-xs">
                 Lihat Detail
             </button> -->
         </div>
 
-    </div>
-
-    <div class="mt-12 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl shadow-xl p-10 border border-yellow-100">
-        <div class="flex items-start">
-            <div class="bg-orange-500 p-3 rounded-2xl mr-6 shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                </svg>
-            </div>
-            <div>
-                <h3 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">Catatan Penting Keamanan</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-md text-gray-700">
-                    <p class="leading-relaxed">⚠️ <strong>Saran Ahli:</strong> Hasil ini adalah panduan umum. Konsultasikan dengan ahli gizi untuk diet spesifik.</p>
-                    <p class="leading-relaxed">🏥 <strong>Kondisi Medis:</strong> Harap hubungi tenaga medis jika Anda sedang hamil atau memiliki diabetes.</p>
-                    <p class="leading-relaxed">⚡ <strong>Mulai Perlahan:</strong> Lakukan olahraga secara bertahap dan hentikan jika pusing atau sesak napas.</p>
-                    <p class="leading-relaxed">💪 <strong>Target Sehat:</strong> Penurunan berat badan ideal berkisar **0.5 - 1 kg** per minggu.</p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
