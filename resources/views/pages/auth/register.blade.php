@@ -124,6 +124,8 @@
                                 type="email"
                                 name="email"
                                 value="{{ old('email') }}"
+                                oninvalid="this.setCustomValidity('Mohon masukkan alamat email yang valid')"
+                                oninput="this.setCustomValidity('')"
                                 required
                                 autocomplete="username"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition @error('email') border-red-500 @enderror"
@@ -181,16 +183,16 @@
                         <div>
                             <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                             <div class="relative">
-                                <input 
-                                    id="password" 
-                                    type="password" 
-                                    name="password" 
-                                    required 
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    required
                                     autocomplete="new-password"
                                     class="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition @error('password') border-red-500 @enderror"
                                     placeholder="Minimal 8 karakter"
                                 >
-                                <button 
+                                <button
                                     type="button"
                                     onclick="togglePassword('password', 'toggleIcon1')"
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
@@ -210,16 +212,16 @@
                         <div>
                             <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password</label>
                             <div class="relative">
-                                <input 
-                                    id="password_confirmation" 
-                                    type="password" 
-                                    name="password_confirmation" 
-                                    required 
+                                <input
+                                    id="password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    required
                                     autocomplete="new-password"
                                     class="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                                     placeholder="Ulangi password"
                                 >
-                                <button 
+                                <button
                                     type="button"
                                     onclick="togglePassword('password_confirmation', 'toggleIcon2')"
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
@@ -257,7 +259,7 @@
         function togglePassword(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
-            
+
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.innerHTML = `
@@ -271,7 +273,7 @@
                 `;
             }
         }
-        
+
         // Add interactive styling for gender selection
         document.querySelectorAll('input[name="gender"]').forEach(input => {
             input.addEventListener('change', function() {

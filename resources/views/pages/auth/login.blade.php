@@ -106,6 +106,8 @@
                                 type="email"
                                 name="email"
                                 value="{{ old('email') }}"
+                                oninvalid="this.setCustomValidity('Mohon masukkan alamat email yang valid')"
+                                oninput="this.setCustomValidity('')"
                                 required
                                 autofocus
                                 autocomplete="username"
