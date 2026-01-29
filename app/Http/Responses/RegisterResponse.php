@@ -3,7 +3,7 @@
 namespace App\Http\Responses;
 
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
-use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterResponse implements RegisterResponseContract
 {
@@ -12,9 +12,9 @@ class RegisterResponse implements RegisterResponseContract
         // Kirim pesan sukses pendaftaran
         session()->flash('success', 'Registrasi Berhasil.');
 
-        // Redirect ke halaman home/dashboard setelah register
-        return $request->wantsJson()
-            ? response()->json(['redirect' => Fortify::redirects('register')])
-            : redirect()->intended(Fortify::redirects('register'));
+        Auth::logout();
+
+        return redirect()->route('login')
+            ->with('success', 'Registrasi berhasil!');
     }
 }
