@@ -61,7 +61,7 @@
 <body class="bg-gray-50" data-success="{{ session('success') }}"
       data-error="{{ $errors->first() }}">
     <!-- Navigation -->
-    <nav class="gradient-bg shadow-lg">
+    <nav class="gradient-bg shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -240,6 +240,25 @@
                             document.getElementById('logout-form').submit();
                         }
                     });
+                });
+            }
+        });
+
+        // validate input
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailField = document.querySelector('input[type="email"]');
+
+            if (emailField) {
+                emailField.addEventListener('invalid', function() {
+                    if (this.validity.valueMissing) {
+                        this.setCustomValidity('Alamat email tidak boleh kosong');
+                    } else if (this.validity.typeMismatch) {
+                        this.setCustomValidity('Format email tidak valid (contoh: nama@email.com)');
+                    }
+                });
+
+                emailField.addEventListener('input', function() {
+                    this.setCustomValidity('');
                 });
             }
         });
