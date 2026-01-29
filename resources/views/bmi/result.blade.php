@@ -20,8 +20,8 @@
             <div class="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-2xl p-8 text-center border border-purple-200 shadow-inner">
                 <p class="text-xs font-bold text-purple-400 uppercase tracking-[0.2em] mb-3">Indeks Massa Tubuh</p>
                 <p class="text-7xl font-black text-purple-600 mb-3">{{ $calculation->bmi }}</p>
-                <div class="inline-block px-6 py-2 rounded-full font-bold text-lg shadow-sm {{ 
-                    $calculation->category === 'Ideal' ? 'bg-green-500 text-white' : 
+                <div class="inline-block px-6 py-2 rounded-full font-bold text-lg shadow-sm {{
+                    $calculation->category === 'Ideal' ? 'bg-green-500 text-white' :
                     ($calculation->category === 'Underweight' || $calculation->category === 'Overweight' ? 'bg-yellow-500 text-white' : 'bg-red-500 text-white')
                 }}">
                     {{ $calculation->category }}
@@ -67,7 +67,7 @@
     </div>
 
     <div class="space-y-10">
-        
+
         <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col transition-all hover:shadow-2xl">
             <div class="p-8">
                 <div class="flex items-center mb-8">
@@ -91,7 +91,7 @@
 
                 <div class="relative group mb-8">
                     @if($dietScrollable)
-                        <button onclick="scrollSlider('{{ $dietSliderId }}', 'left')" 
+                        <button onclick="scrollSlider('{{ $dietSliderId }}', 'left')"
                                 class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                             <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -99,21 +99,21 @@
                         </button>
                     @endif
 
-                    <div id="{{ $dietSliderId }}" 
+                    <div id="{{ $dietSliderId }}"
                         class="flex gap-4 pb-2 {{ $dietScrollable ? 'overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide' : 'justify-start' }}"
                         style="-webkit-overflow-scrolling: touch;">
-                        
+
                         @foreach($dietImages as $path)
                             <div class="flex-none {{ $dietScrollable ? 'w-[85%] md:w-[calc(50%-0.5rem)] snap-center' : 'w-1/2 md:w-[48%]' }}">
-                                <img src="{{ asset($path) }}" 
-                                    class="w-full h-56 object-cover rounded-2xl shadow-md border border-gray-100" 
+                                <img src="{{ asset($path) }}"
+                                    class="w-full h-56 object-cover rounded-2xl shadow-md border border-gray-100"
                                     alt="Rekomendasi Makanan">
                             </div>
                         @endforeach
                     </div>
 
                     @if($dietScrollable)
-                        <button onclick="scrollSlider('{{ $dietSliderId }}', 'right')" 
+                        <button onclick="scrollSlider('{{ $dietSliderId }}', 'right')"
                                 class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                             <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -124,13 +124,13 @@
 
                 <div id="detail-makan" class="hidden animate-fade-in-up">
                     <div class="bg-green-50/50 p-8 rounded-2xl border border-green-100">
-                        
+
                         @foreach($suggestions['diet'] as $jenis => $makananList)
                             <div class="mb-10 last:mb-0">
                                 <h3 class="text-2xl font-extrabold text-green-800 uppercase tracking-wider mb-1">
                                     {{ $jenis }}
                                 </h3>
-                                
+
                                 <p class="text-sm font-semibold text-green-600/70 mb-4 ml-1">
                                     Makanan dan Kalori :
                                 </p>
@@ -159,7 +159,7 @@
                 </div>
             </div>
 
-            <button onclick="toggleCard('detail-makan', this)" 
+            <button onclick="toggleCard('detail-makan', this)"
                     class="w-full py-6 bg-gray-50 hover:bg-green-50 text-gray-500 hover:text-green-600 font-black transition-all border-t border-gray-100 tracking-[0.2em] text-xs uppercase">
                 Lihat Detail
             </button>
@@ -250,7 +250,7 @@
                     <p class="text-gray-400 text-xs italic tracking-wide">Ilustrasi Gaya Hidup Sehat</p>
                 </div>
 
-                <!-- <div id="detail-tips" class="animate-fade-in-up">
+                <div id="detail-tips" class="animate-fade-in-up">
                     <div class="bg-red-50/50 p-8 rounded-2xl border border-red-100">
                         <div class="space-y-8">
                             @foreach($suggestions['tips'] as $index => $tip)
@@ -264,7 +264,7 @@
                             @endforeach
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- <button onclick="toggleCard('detail-tips', this)" class="w-full py-6 bg-gray-50 hover:bg-red-50 text-gray-500 hover:text-red-600 font-black transition-all border-t border-gray-100 tracking-[0.2em] text-xs">
                 Lihat Detail

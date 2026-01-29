@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
-  
+
     <title>Login - iDealYou</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -122,16 +122,16 @@
                         <div>
                             <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                             <div class="relative">
-                                <input 
-                                    id="password" 
-                                    type="password" 
-                                    name="password" 
-                                    required 
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    required
                                     autocomplete="current-password"
                                     class="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition @error('password') border-red-500 @enderror"
                                     placeholder="Masukkan password"
                                 >
-                                <button 
+                                <button
                                     type="button"
                                     onclick="togglePassword('password', 'toggleIcon1')"
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
@@ -193,7 +193,7 @@
         function togglePassword(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
-            
+
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.innerHTML = `
@@ -208,5 +208,23 @@
             }
         }
     </script>
+
+    @if(session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registrasi Berhasil!',
+                    confirmButtonColor: "#764ba2", // Samakan dengan tema warna iDealYou Anda
+                    showConfirmButton: false,
+                    timer: 3000,
+                    customClass: {
+                        popup: 'rounded-3xl',
+                    }
+                });
+            });
+        </script>
+    @endif
 </body>
 </html>

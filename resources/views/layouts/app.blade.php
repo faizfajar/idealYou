@@ -58,7 +58,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50" data-success="{{ session('success') }}" 
+<body class="bg-gray-50" data-success="{{ session('success') }}"
       data-error="{{ $errors->first() }}">
     <!-- Navigation -->
     <nav class="gradient-bg shadow-lg">
@@ -87,7 +87,7 @@
                         <button type="button" id="menu-button" class="flex items-center space-x-2 focus:outline-none group bg-white/10 hover:bg-white/20 py-1 pl-3 pr-2 rounded-lg transition-all border border-white/10">
                             <span class="text-xs font-medium text-white tracking-wide">
                                 {{ explode(' ', auth()->user()->name)[0] }} </span>
-                            
+
                             <div class="h-7 w-7 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] text-white font-bold shadow-inner">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
@@ -98,12 +98,14 @@
                         </button>
 
                         <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-gray-100 py-1.5 z-50">
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form id="logout-form" method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" 
-                                        onclick="return confirm('Keluar sekarang?')"
+                                <button type="button"
+                                        id="btn-logout"
                                         class="w-full flex items-center px-4 py-2 text-xs text-red-600 hover:bg-red-50 transition font-semibold">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                    </svg>
                                     Logout
                                 </button>
                             </form>
@@ -129,95 +131,122 @@
             </p>
         </div>
     </footer>
+    <script>
+        // Ambil elemen tombol dan menu berdasarkan ID
+        const menuButton = document.getElementById('menu-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        // Fungsi ketika tombol diklik
+        menuButton.addEventListener('click', function(event) {
+            // Mencegah klik "tembus" ke window
+            event.stopPropagation();
+            // Munculkan/Sembunyikan menu (toggle class hidden)
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Fungsi untuk menutup dropdown jika klik di mana saja di luar menu
+        window.addEventListener('click', function() {
+            if (!dropdownMenu.classList.contains('hidden')) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <script>
+        function toggleCard(targetId, button) {
+            // Hanya mencari elemen berdasarkan ID yang dikirim (spesifik per kartu)
+            const detailElement = document.getElementById(targetId);
+
+            if (detailElement.classList.contains('hidden')) {
+                detailElement.classList.remove('hidden');
+                button.innerText = 'Tutup Detail';
+            } else {
+                detailElement.classList.add('hidden');
+                button.innerText = 'Lihat Detail';
+            }
+        }
+    </script>
+
+    <script>
+        function scrollSlider(id, direction) {
+            const slider = document.getElementById(id);
+            if (!slider) return;
+
+            // Geser sejauh lebar satu card
+            const cardWidth = slider.querySelector('.flex-none').clientWidth + 16; // 16 adalah gap-4
+
+            slider.scrollBy({
+                left: direction === 'left' ? -cardWidth : cardWidth,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil data dari Session Laravel (Safely encoded)
+            const body = document.querySelector('body');
+            const successMessage = body.getAttribute('data-success');
+            const errorMessage = body.getAttribute('data-error');
+
+            // Alert untuk Sukses (Login / Register)
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: successMessage,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'rounded-3xl',
+                    }
+                });
+            }
+
+            // Alert untuk Error (Salah Email/Password)
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ooops!',
+                    text: errorMessage,
+                    confirmButtonColor: '#764ba2', // Warna ungu iDealYou
+                    customClass: {
+                        popup: 'rounded-3xl',
+                        confirmButton: 'rounded-xl px-6 py-2'
+                    }
+                });
+            }
+
+            const btnLogout = document.getElementById('btn-logout');
+            if (btnLogout) {
+                btnLogout.addEventListener('click', function() {
+                    Swal.fire({
+                        title: "Ingin keluar?",
+                        text: "Anda harus login kembali untuk mengakses data Anda.",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ef4444", // Warna merah untuk aksi keluar
+                        cancelButtonColor: "#6b7280",
+                        confirmButtonText: "Ya, Logout",
+                        cancelButtonText: "Batal",
+                        customClass: {
+                            popup: 'rounded-3xl',
+                            confirmButton: 'rounded-xl px-6 py-2',
+                            cancelButton: 'rounded-xl px-6 py-2'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('logout-form').submit();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+    @stack('scripts')
 </body>
 
 
-<script>
-    // Ambil elemen tombol dan menu berdasarkan ID
-    const menuButton = document.getElementById('menu-button');
-    const dropdownMenu = document.getElementById('dropdown-menu');
-
-    // Fungsi ketika tombol diklik
-    menuButton.addEventListener('click', function(event) {
-        // Mencegah klik "tembus" ke window
-        event.stopPropagation(); 
-        // Munculkan/Sembunyikan menu (toggle class hidden)
-        dropdownMenu.classList.toggle('hidden');
-    });
-
-    // Fungsi untuk menutup dropdown jika klik di mana saja di luar menu
-    window.addEventListener('click', function() {
-        if (!dropdownMenu.classList.contains('hidden')) {
-            dropdownMenu.classList.add('hidden');
-        }
-    });
-</script>
-
-<script>
-    function toggleCard(targetId, button) {
-        // Hanya mencari elemen berdasarkan ID yang dikirim (spesifik per kartu)
-        const detailElement = document.getElementById(targetId);
-        
-        if (detailElement.classList.contains('hidden')) {
-            detailElement.classList.remove('hidden');
-            button.innerText = 'Tutup Detail';
-        } else {
-            detailElement.classList.add('hidden');
-            button.innerText = 'Lihat Detail';
-        }
-    }
-</script>
-
-<script>
-    function scrollSlider(id, direction) {
-        const slider = document.getElementById(id);
-        if (!slider) return;
-        
-        // Geser sejauh lebar satu card
-        const cardWidth = slider.querySelector('.flex-none').clientWidth + 16; // 16 adalah gap-4
-        
-        slider.scrollBy({
-            left: direction === 'left' ? -cardWidth : cardWidth,
-            behavior: 'smooth'
-        });
-    }
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 1. Ambil data dari Session Laravel (Safely encoded)
-        const body = document.querySelector('body');
-        const successMessage = body.getAttribute('data-success');
-        const errorMessage = body.getAttribute('data-error');
-
-        // 2. Alert untuk Sukses (Login / Register)
-        if (successMessage) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: successMessage,
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                customClass: {
-                    popup: 'rounded-3xl',
-                }
-            });
-        }
-
-        // 3. Alert untuk Error (Salah Email/Password)
-        if (errorMessage) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Ooops!',
-                text: errorMessage,
-                confirmButtonColor: '#764ba2', // Warna ungu iDealYou
-                customClass: {
-                    popup: 'rounded-3xl',
-                    confirmButton: 'rounded-xl px-6 py-2'
-                }
-            });
-        }
-    });
-</script>
 </html>
