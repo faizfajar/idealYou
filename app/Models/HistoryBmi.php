@@ -12,6 +12,7 @@ class HistoryBmi extends Model
 
     protected $fillable = [
         'user_id',
+        'id_bmi',
         'tinggi_badan',
         'berat_badan',
         'gender',
@@ -26,6 +27,12 @@ class HistoryBmi extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    public function bmiCalculation()
+    {
+        return $this->belongsTo(BmiCalculation::class, 'id_bmi');
     }
 
      public function getHeightAttribute()

@@ -55,7 +55,8 @@ class BmiController extends Controller
         // Insert ke bmi_calculations
         $bmiRecord = BmiCalculation::create($data);
 
-        // Insert ke history_bmi (1:1)
+        $data['id_bmi'] = $bmiRecord->id_bmi;
+
         HistoryBmi::create($data);
 
         return redirect()->route('bmi.result', ['id' => $bmiRecord->id_bmi]);

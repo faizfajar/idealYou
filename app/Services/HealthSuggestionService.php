@@ -102,7 +102,7 @@ class HealthSuggestionService
             return $tips->map(function($item) {
                 return [
                     'judul' => $item->judul,
-                    'deskripsi' => $item->deskripsi,
+                    'isi_tips' => $item->isi_tips,
                 ];
             })->toArray();
         }
@@ -261,23 +261,23 @@ class HealthSuggestionService
         return [
             [
                 'judul' => 'Cukupi Kebutuhan Air',
-                'deskripsi' => 'Minum air putih minimal 8 gelas per hari. Sekitar 60% dari komposisi tubuh Anda adalah air.',
+                'isi_tips' => 'Minum air putih minimal 8 gelas per hari. Sekitar 60% dari komposisi tubuh Anda adalah air.',
             ],
             [
                 'judul' => 'Manajemen Stres',
-                'deskripsi' => 'Hindari stres berlebihan. Cobalah teknik relaksasi seperti meditasi atau yoga untuk menenangkan pikiran.',
+                'isi_tips' => 'Hindari stres berlebihan. Cobalah teknik relaksasi seperti meditasi atau yoga untuk menenangkan pikiran.',
             ],
             [
                 'judul' => 'Kualitas Istirahat',
-                'deskripsi' => 'Tidur cukup 7-8 jam setiap malam. Istirahat yang baik penting untuk pemulihan tubuh dan metabolisme.',
+                'isi_tips' => 'Tidur cukup 7-8 jam setiap malam. Istirahat yang baik penting untuk pemulihan tubuh dan metabolisme.',
             ],
             [
                 'judul' => 'Aktivitas Fisik Rutin',
-                'deskripsi' => 'Lakukan olahraga secara teratur minimal 150 menit per minggu untuk menjaga kesehatan jantung.',
+                'isi_tips' => 'Lakukan olahraga secara teratur minimal 150 menit per minggu untuk menjaga kesehatan jantung.',
             ],
             [
                 'judul' => 'Konsistensi adalah Kunci',
-                'deskripsi' => 'Perubahan kecil yang konsisten lebih baik daripada perubahan besar yang tidak berkelanjutan.',
+                'isi_tips' => 'Perubahan kecil yang konsisten lebih baik daripada perubahan besar yang tidak berkelanjutan.',
             ],
         ];
     }

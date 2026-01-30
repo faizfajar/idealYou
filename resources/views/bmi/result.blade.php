@@ -258,7 +258,7 @@
                                 <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-black mr-5 flex-shrink-0 shadow-md transform group-hover:scale-110 transition">{{ $index + 1 }}</div>
                                 <div>
                                     <h4 class="font-bold text-gray-900 text-lg mb-1">{{ $tip['judul'] }}</h4>
-                                    <p class="text-gray-600 leading-relaxed text-md">{{ $tip['deskripsi'] }}</p>
+                                    <p class="text-gray-600 leading-relaxed text-md">{{ $tip['isi_tips'] }}</p>
                                 </div>
                             </div>
                             @endforeach

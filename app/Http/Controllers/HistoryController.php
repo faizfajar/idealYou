@@ -39,19 +39,19 @@ class HistoryController extends Controller
         ));
     }
 
-     public function detail(Request $request): View
-    {
-        $calculation = HistoryBmi::findOrFail($request->id);
-        
+    public function detail($id): View
+{
+    $calculation = HistoryBmi::findOrFail($id);
+    
 
-        if ($calculation->user_id !== auth()->id()) {
-            abort(403);
-        }
-
-        $suggestions = $this->suggestionService->getAllSuggestions($calculation->kategori);
-
-        return view('bmi.result', compact('calculation', 'suggestions'));
+    if ($calculation->user_id !== auth()->id()) {
+        abort(403, 'Aksi tidak diizinkan.');
     }
+
+    $suggestions = $this->suggestionService->getAllSuggestions($calculation->kategori);
+
+    return view('bmi.result', compact('calculation', 'suggestions'));
+}
 
     public function destroy($id): RedirectResponse
     {

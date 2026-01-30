@@ -12,6 +12,6 @@ class TipsSehat extends Model
     protected $fillable = [
         'kategori',
         'judul',
-        'deskripsi',
+        'isi_tips',
     ];
 }

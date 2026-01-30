@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id_tips_sehat');
             $table->string('kategori', 255)->nullable();
             $table->string('judul', 200)->nullable();
-            $table->text('deskripsi')->nullable();
+            $table->text('isi_tips')->nullable();
             $table->timestamps();
         });
     }
